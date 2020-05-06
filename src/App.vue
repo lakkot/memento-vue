@@ -1,13 +1,15 @@
 <template>
 
   <div class="content">
-    <input class ="todo-input" v-model="currentTodo" @keydown.enter="addTodo()" placeholder="add a todo">
-      <ul class="todos">
+  <md-field>
+    <md-input class ="todo-input" v-model="currentTodo" @keydown.enter="addTodo()" placeholder="add a todo" />
+  </md-field>
+      <md-list class="todos">
         <li v-for="todo in todos" :key="todo.id">
           <div v-if="todo.edit === false" :class="{completed : todo.completed === 'completed'}">
-            <div  @dblclick="editTodo(todo)">
+            <span  @dblclick="editTodo(todo)">
               {{ todo.label }}
-            </div>
+            </span>
             <input type="checkbox" @click="completeTodo(todo)" >
             {{todo.completed}}
             <button @click="removeTodo(todo)">Delete</button>
@@ -16,7 +18,7 @@
               <input v-model="todo.label" @keydown.enter="stopEditTodo(todo)" placeholder="enter new todo name">
           </div>
         </li>
-      </ul>
+      </md-list>
   </div>
 
 </template>
@@ -67,6 +69,9 @@ export default {
 
 <style>
 
+li {
+  display: inline;
+}
 .content {
   border: 1px solid black;
 }
