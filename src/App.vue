@@ -1,25 +1,35 @@
 <template>
-
+<div>
+  <div class="navbar">
+    <h1>your todo list</h1>
+  </div>
   <div class="content">
+
   <md-field>
     <md-input class ="todo-input" v-model="currentTodo" @keydown.enter="addTodo()" placeholder="add a todo" />
   </md-field>
       <md-list class="todos">
         <li v-for="todo in todos" :key="todo.id">
-          <div v-if="todo.edit === false" :class="{completed : todo.completed === 'completed'}">
-            <span  @dblclick="editTodo(todo)">
-              {{ todo.label }}
-            </span>
-            <input type="checkbox" @click="completeTodo(todo)" >
-            {{todo.completed}}
-            <button @click="removeTodo(todo)">Delete</button>
+      <md-card class ="card">
+          <div v-if="todo.edit === false" :class="{completed : todo.completed === 'completed'}" class="card-content">
+            <p  @dblclick="editTodo(todo)" class="element title">{{ todo.label }}</p>
+            <div class="element complete">
+              <input type="checkbox" @click="completeTodo(todo)" >
+              <span class="element">{{todo.completed}}</span>
+            </div>
+            <div class="element button">
+              <button @click="removeTodo(todo)" class="delete">Delete</button>
+            </div>
           </div>
-          <div v-if="todo.edit">
-              <input v-model="todo.label" @keydown.enter="stopEditTodo(todo)" placeholder="enter new todo name">
+          <div v-if="todo.edit" class="edit">
+              <input class="edit-title" v-model="todo.label" @keydown.enter="stopEditTodo(todo)" placeholder="enter new todo name">
           </div>
+        </md-card>
+
         </li>
       </md-list>
   </div>
+</div>
 
 </template>
 
@@ -73,11 +83,77 @@ li {
   display: inline;
 }
 .content {
-  border: 1px solid black;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.navbar {
+  color: white;
+  background-color: darkgrey;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  adjsut-items: center;
+}
+
+.navbar p {
+
+}
+
+.card {
+  height: 50px;
+
+}
+
+.element {
+  margin-top: 15px;
+}
+
+.card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.title {
+  width: 50%;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.complete {
+  width: 30%;
+}
+
+.complete span {
+  padding-left: 10px;
+}
+
+.button {
+  width: 25%;
+  text-align: center;
+}
+
+.delete {
+  background-color: darkwhite;
+  height: 20px;
 }
 
 .completed {
   color: darkgreen;
 }
 
+.edit {
+  height: 100%;
+  width: 50%;
+  padding-top: 10px;
+}
+
+.edit-title {
+  padding: 5px;
+  width: 100%;
+
+}
 </style>
